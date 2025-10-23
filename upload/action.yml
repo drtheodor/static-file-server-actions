@@ -18,6 +18,7 @@ runs:
         run: |
           git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}/.tmp
           find ${{ inputs.path }}/.tmp -mindepth 1 -maxdepth 1 -exec mv {} ${{ inputs.path }}/ \;
+          rm -rf ${{ inputs.path }}/.tmp
         
       - name: Publish
         shell: bash
