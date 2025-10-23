@@ -15,7 +15,7 @@ runs:
         shell: bash
         run: |
           git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}/.tmp
-          mv ${{ inputs.path }}/.tmp/* ${{ inputs.path }}
+          mv "${{ inputs.path }}/.tmp"/* "${{ inputs.path }}"
         
       - name: Publish
         shell: bash
