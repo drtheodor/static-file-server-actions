@@ -26,6 +26,7 @@ runs:
         shell: bash
         run: cd ${{ runner.temp }}/sfs && bun install
       - name: Build with Astro
+        shell: bash
         run: |
           cd ${{ runner.temp }}/sfs && bun astro build --silent \
             --site "${{ steps.pages.outputs.origin }}" \
