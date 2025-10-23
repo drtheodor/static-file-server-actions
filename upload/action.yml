@@ -27,7 +27,7 @@ runs:
     
           cd ${{ inputs.path }}
 
-          git remote set-url origin https://x-access-token:${{ inputs.token }}@github.com/${{ inputs.repo }}.git
+          git remote set-url origin https://${{ inputs.token }}@github.com/${{ inputs.repo }}.git
     
           if [[ -n "$(git status --porcelain)" ]]; then
             git add .
