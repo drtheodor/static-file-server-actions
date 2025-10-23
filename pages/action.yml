@@ -8,13 +8,11 @@ inputs:
 
 runs:
   using: "composite"
-  env:
-    SFS_DIR: "$RUNNER_TEMP/sfs"
   steps:
       - name: Checkout FS
-        run: git clone https://github.com/drtheodor/static-file-server ${{ env.SFS_DIR }}
+        run: git clone https://github.com/drtheodor/static-file-server ${{ runner.temp }}/sfs
       - name: Copy files
-        run: cp -r . ${{ env.SFS_DIR}}/files
+        run: cp -r . ${{ runner.temp }}/sfs/files
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -23,14 +21,14 @@ runs:
         id: pages
         uses: actions/configure-pages@v5
       - name: Install dependencies
-        run: cd ${{ env.SFS_DIR}} && bun install
+        run: cd ${{ runner.temp }}/sfs && bun install
       - name: Build with Astro
         run: |
-          cd ${{ env.SFS_DIR }} && bun astro build --silent \
+          cd ${{ runner.temp }}/sfs && bun astro build --silent \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
       - name: Copy build
-        run: cp -r ${{ env.SFS_DIR }}/dist/. .
+        run: cp -r ${{ runner.temp }}/sfs/dist/. .
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
