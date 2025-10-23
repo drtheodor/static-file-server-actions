@@ -9,6 +9,9 @@ inputs:
     required: true
   token:
     required: true
+  message:
+    default: 'chore: publish artifacts'
+    required: true
 
 runs:
   using: "composite"
@@ -16,9 +19,9 @@ runs:
       - name: Clone
         shell: bash
         run: |
-          git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}/.tmp
-          find ${{ inputs.path }}/.tmp -mindepth 1 -maxdepth 1 -exec mv {} ${{ inputs.path }}/ \;
-          rm -rf ${{ inputs.path }}/.tmp
+          git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}-repo
+          mv ${{ inputs.path }}-repo/* ${{ inputs.path }}
+          rm -rf ${{ inputs.path }}-repo
         
       - name: Publish
         shell: bash
@@ -32,7 +35,7 @@ runs:
     
           if [[ -n "$(git status --porcelain)" ]]; then
             git add .
-            git commit -m "chore: publish artifacts for Stargate"
+            git commit -m "${{ inputs.message }}"
             git push origin main
           else
             echo "No changes to commit."
