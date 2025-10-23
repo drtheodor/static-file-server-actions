@@ -1,0 +1,37 @@
+name: 'Upload to SFS'
+description: 'Build static-file-server pages'
+inputs:
+  token:
+    description: 'GH Token'
+    required: true
+  path:
+    description: 'Build directory path'
+    required: true
+  repo:
+    description: 'Github repository'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ inputs.token }}
+          repository: ${{ inputs.repo }}
+          path: ${{ inputs.path }}
+        
+      - name: Publish
+        shell: bash
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    
+          cd ${{ inputs.path }}
+    
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git add .
+            git commit -m "chore: publish artifacts for Stargate"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
