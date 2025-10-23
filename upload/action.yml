@@ -13,7 +13,7 @@ runs:
   steps:
       - name: Clone
         shell: bash
-        run: git clone https://github.com/${{ inputs.repo }} ${{ inputs.path }}
+        run: git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
         
       - name: Publish
         shell: bash
