@@ -33,8 +33,4 @@ runs:
             --base "${{ steps.pages.outputs.base_path }}"
       - name: Copy build
         shell: bash
-        run: cp -r ${{ runner.temp }}/sfs/dist/. ${{ inputs.build-path }}
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ${{ inputs.build-path }}
+        run: cp -r ${{ runner.temp }}/sfs/dist/. ${{ inputs.build-dir }}
