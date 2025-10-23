@@ -7,6 +7,8 @@ inputs:
   repo:
     description: 'Github repository'
     required: true
+  token:
+    required: true
 
 runs:
   using: "composite"
@@ -24,6 +26,8 @@ runs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
     
           cd ${{ inputs.path }}
+
+          git remote set-url origin https://x-access-token:${{ inputs.token }}@github.com/${{ inputs.repo }}.git
     
           if [[ -n "$(git status --porcelain)" ]]; then
             git add .
