@@ -20,7 +20,7 @@ runs:
         shell: bash
         run: |
           git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}-repo
-          mv ${{ inputs.path }}-repo/* ${{ inputs.path }}
+          cp -r ${{ inputs.path }}-repo/. ${{ inputs.path }}/
           rm -rf ${{ inputs.path }}-repo
         
       - name: Publish
