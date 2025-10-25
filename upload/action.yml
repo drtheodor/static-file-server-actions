@@ -18,13 +18,7 @@ runs:
   steps:
       - name: Clone
         shell: bash
-        run: git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}-repo
-
-      - name: Copy
-        shell: bash
-        run: |
-          cp -rn ${{ inputs.path }}-repo/. ${{ inputs.path }}/
-          rm -rf ${{ inputs.path }}-repo
+        run: git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
         
       - name: Publish
         shell: bash
