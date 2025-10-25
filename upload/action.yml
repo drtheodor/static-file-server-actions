@@ -23,7 +23,7 @@ runs:
       - name: Copy
         shell: bash
         run: |
-          cp -r ${{ inputs.path }}-repo/. ${{ inputs.path }}/
+          cp -rf ${{ inputs.path }}-repo/. ${{ inputs.path }}/
           rm -rf ${{ inputs.path }}-repo
         
       - name: Publish
