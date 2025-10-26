@@ -20,15 +20,6 @@ runs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
     
           cd ${{ inputs.path }}
-          
-          git sparse-checkout init --cone
-          git sparse-checkout set --no-cone
-
-          git config filter.emptying.clean 'printf ""'
-          git config filter.emptying.smudge 'printf ""'
-
-          git checkout
-
           git remote set-url origin https://${{ inputs.token }}@github.com/${{ env.SFS_REPO }}.git
     
           if [[ -n "$(git status --porcelain)" ]]; then
