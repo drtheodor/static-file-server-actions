@@ -19,12 +19,11 @@ runs:
         id: setup
         shell: bash
         run: |
-          git clone --filter=blob:none --no-checkout  --sparse --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
+          git clone --filter=blob:none --no-checkout --sparse --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
 
           cd ${{ inputs.path }}
 
-          git sparse-checkout init --cone
-          git config core.sparseCheckout true
+          git sparse-checkout init --no-cone
 
           cat > .git/info/sparse-checkout << 'EOF'
           /*
