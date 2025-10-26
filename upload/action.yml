@@ -24,7 +24,7 @@ runs:
           git remote set-url origin https://${{ inputs.token }}@github.com/${{ env.SFS_REPO }}.git
     
           if [[ -n "$(git status --porcelain)" ]]; then
-            git add .
+            git add --sparse .
             git commit -m "${{ inputs.message }}"
             git push origin main
           else
