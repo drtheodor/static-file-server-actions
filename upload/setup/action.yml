@@ -8,13 +8,15 @@ inputs:
     description: 'Github repository'
     required: true
 outputs:
-  path: ${{ inputs.path }}
+  path: ${{ steps.setup.outputs.path }}
 
 runs:
   using: "composite"
   steps:
       - name: Clone
+        id: setup
         shell: bash
         run: |
           git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
           echo "SFS_REPO=${{ inputs.repo }}" >> $GITHUB_ENV
+          echo "path=${{ inputs.path }}" >> "$GITHUB_OUTPUT"
