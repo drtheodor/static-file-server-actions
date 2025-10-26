@@ -1,11 +1,7 @@
 name: 'Upload to SFS'
-description: 'Build static-file-server pages'
 inputs:
   path:
     description: 'Build directory path'
-    required: true
-  repo:
-    description: 'Github repository'
     required: true
   token:
     required: true
@@ -16,10 +12,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-      - name: Clone
-        shell: bash
-        run: git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
-        
       - name: Publish
         shell: bash
         run: |
