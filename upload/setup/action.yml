@@ -20,4 +20,5 @@ runs:
         shell: bash
         run: |
           git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
-          echo "SFS_REPO=${{ inputs.repo }},SFS_PATH=${{ inputs.path }}" >> $GITHUB_ENV
+          echo "SFS_REPO=${{ inputs.repo }}" >> $GITHUB_ENV
+          echo "SFS_PATH=${{ inputs.path }}" >> $GITHUB_ENV
