@@ -20,5 +20,14 @@ runs:
         shell: bash
         run: |
           git clone --filter=blob:none --sparse --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
+
+          git sparse-checkout init --cone
+          git sparse-checkout set --no-cone
+
+          git config filter.emptying.clean 'printf ""'
+          git config filter.emptying.smudge 'printf ""'
+
+          git checkout
+          
           echo "SFS_REPO=${{ inputs.repo }}" >> $GITHUB_ENV
           echo "SFS_PATH=${{ inputs.path }}" >> $GITHUB_ENV
