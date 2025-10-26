@@ -19,7 +19,7 @@ runs:
   using: "composite"
   steps:
       - name: Setup
-        uses: drtheodor/upload/setup
+        uses: drtheodor/static-file-server-actions/upload/setup
         with:
           path: ${{ inputs.path }}
           repo: ${{ inputs.repo }}
@@ -29,7 +29,7 @@ runs:
         run: ${{ inputs.command }}
       
       - name: Publish
-        uses: drtheodor/upload@main
+        uses: drtheodor/static-file-server-actions/upload@main
         with:
           path: ${{ inputs.path }}
           token: ${{ inputs.token }}
