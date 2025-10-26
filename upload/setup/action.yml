@@ -19,7 +19,28 @@ runs:
         id: setup
         shell: bash
         run: |
-          git clone --filter=blob:none --sparse --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
+          git clone --filter=blob:none --no-checkout  --sparse --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
+
+          cd ${{ inputs.path }}
+
+          git sparse-checkout init --cone
+          git config core.sparseCheckout true
+
+          cat > .git/info/sparse-checkout << 'EOF'
+          /*
+          !*.jar
+          EOF
+          
+          git checkout
+          
+          echo "Creating empty placeholder files for JARs..."
+          
+          git ls-tree -r --name-only HEAD | grep '\.jar$' | while read -r jar_file; do
+              mkdir -p "$(dirname "$jar_file")"
+              touch "$jar_file"
+          done
           
           echo "SFS_REPO=${{ inputs.repo }}" >> $GITHUB_ENV
           echo "SFS_PATH=${{ inputs.path }}" >> $GITHUB_ENV
+
+          cd -
