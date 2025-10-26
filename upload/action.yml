@@ -3,7 +3,7 @@ inputs:
   path:
     description: 'Build directory path'
     required: true
-    default: ${{ runner.temp }}/maven
+    default: ${{ env.SFS_PATH }}
   token:
     required: true
   message:
