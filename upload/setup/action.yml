@@ -1,0 +1,15 @@
+name: 'Setup SFS'
+inputs:
+  path:
+    description: 'Build directory path'
+    required: true
+  repo:
+    description: 'Github repository'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+      - name: Clone
+        shell: bash
+        run: git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
