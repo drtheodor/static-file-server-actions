@@ -1,0 +1,36 @@
+name: 'Setup & Upload to SFS'
+description: 'Build static-file-server pages'
+inputs:
+  path:
+    description: 'Build directory path'
+    required: true
+  repo:
+    description: 'Github repository'
+    required: true
+  token:
+    required: true
+  message:
+    default: 'chore: publish artifacts'
+    required: true
+  command:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+      - name: Setup
+        uses: drtheodor/upload/setup
+        with:
+          path: ${{ inputs.path }}
+          repo: ${{ inputs.repo }}
+
+      - name: Run Command
+        shell: bash
+        run: ${{ inputs.command }}
+      
+      - name: Publish
+        uses: drtheodor/upload@main
+        with:
+          path: ${{ inputs.path }}
+          token: ${{ inputs.token }}
+          message: ${{ inputs.message }}
