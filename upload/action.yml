@@ -3,7 +3,7 @@ inputs:
   path:
     description: 'Build directory path'
     required: true
-    default: ${{ env.SFS_PATH }}
+    default: $SFS_PATH
   token:
     required: true
   message:
