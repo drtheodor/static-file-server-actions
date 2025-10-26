@@ -20,5 +20,4 @@ runs:
           echo "path=${{ inputs.path }}" >> "$GITHUB_OUTPUT"
 
 outputs:
-  path: ${{ inputs.path }}
-#path: ${{ steps.setup.outputs.path }}
+  path: ${{ steps.setup.outputs.path }}
