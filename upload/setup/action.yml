@@ -37,6 +37,8 @@ runs:
           git ls-tree -r --name-only HEAD | grep '\.jar$' | while read -r jar_file; do
               mkdir -p "$(dirname "$jar_file")"
               touch "$jar_file"
+              
+              git update-index --skip-worktree "$jar_file"
           done
           
           echo "SFS_REPO=${{ inputs.repo }}" >> $GITHUB_ENV
