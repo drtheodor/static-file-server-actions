@@ -15,7 +15,7 @@ runs:
         
       - name: Copy files
         shell: bash
-        run: cp -r . ${{ runner.temp }}/sfs/files
+        run: cp -a. ${{ runner.temp }}/sfs/files
         
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
