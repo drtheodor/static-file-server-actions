@@ -1,5 +1,8 @@
 name: 'Upload to SFS'
 inputs:
+  published:
+    description: 'Published paths'
+    required: true
   path:
     description: 'Build directory path'
     required: true
@@ -23,7 +26,7 @@ runs:
           git remote set-url origin https://${{ inputs.token }}@github.com/${{ env.SFS_REPO }}.git
     
           if [[ -n "$(git status --porcelain)" ]]; then
-            git add --sparse .
+            git add --sparse ${{ inputs.published }}
             git commit -m "${{ inputs.message }}"
             git push origin main
           else
