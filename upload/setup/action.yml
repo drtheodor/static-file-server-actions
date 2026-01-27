@@ -1,5 +1,4 @@
 name: 'Setup SFS'
-description: ''
 inputs:
   path:
     description: 'Build directory path'
