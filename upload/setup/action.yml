@@ -1,4 +1,5 @@
 name: 'Setup SFS'
+description: ''
 inputs:
   path:
     description: 'Build directory path'
@@ -19,27 +20,7 @@ runs:
         id: setup
         shell: bash
         run: |
-          git clone --filter=blob:none --no-checkout --sparse --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
-
-          cd ${{ inputs.path }}
-
-          git sparse-checkout init --no-cone
-
-          cat > .git/info/sparse-checkout << 'EOF'
-          /*
-          !*.jar
-          EOF
-          
-          git checkout
-          
-          echo "Creating empty placeholder files for JARs..."
-          
-          git ls-tree -r --name-only HEAD | grep '\.jar$' | while read -r jar_file; do
-              mkdir -p "$(dirname "$jar_file")"
-              touch "$jar_file"
-          done
-          
           echo "SFS_REPO=${{ inputs.repo }}" >> $GITHUB_ENV
           echo "SFS_PATH=${{ inputs.path }}" >> $GITHUB_ENV
-
-          cd -
+          
+          git clone --depth 1 https://github.com/${{ inputs.repo }} ${{ inputs.path }}
