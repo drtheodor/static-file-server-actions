@@ -28,6 +28,7 @@ runs:
           if [[ -n "$(git status --porcelain)" ]]; then
             git add --sparse ${{ inputs.published }}
             git commit -m "${{ inputs.message }}"
+            git pull --rebase
             git push origin main
           else
             echo "No changes to commit."
